@@ -6,6 +6,10 @@ on:
       - main
 
   workflow_dispatch:
+
+permissions:
+  contents: write
+  
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -29,21 +33,4 @@ jobs:
 
       - name: Run init tests
         run: mvn test
-        
-      - name: Update repository code
-        run: |
-          echo "Workflow executed on $(date)" >> workflow-log.txt
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-
-          git add workflow-log.txt
-          git commit -m "Update workflow log" || echo "No changes to commit"
-
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/Blacka4ka/GitAction.git
-          git push origin main
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       
