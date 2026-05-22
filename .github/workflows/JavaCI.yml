@@ -25,7 +25,7 @@ jobs:
         run: java -version
 
       - name: Install dependencies
-        run: mvn frpengency:resolve
+        run: mvn dependency:resolve
 
       - name: Run init tests
         run: mvn test
